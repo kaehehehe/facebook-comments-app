@@ -1,21 +1,18 @@
-import React, { type KeyboardEvent, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { v4 as uuidv4 } from 'uuid';
 
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
-import { type Comment } from '../interface';
+import { type Comment, type Reply } from '../interface';
 import COLOR from '../themes/color';
 import { Text } from '../themes/element';
 import Like from './Like';
-import SpeechBubble from './SpeechBubble';
-import Replies from './Replies';
-import Input from './Input';
 
 const S = {
   Container: styled.div`
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin: 0 0 10px 50px;
+    border: 1px solid red;
   `,
   CommentAndDots: styled.div`
     display: flex;
@@ -64,32 +61,20 @@ const S = {
   `
 };
 
-const Comments = ({
+const Replies = ({
+  replies,
   comments,
   setComments
-}: {
-  comments: Comment[]
-  setComments: React.Dispatch<React.SetStateAction<Comment[] | []>>
-}) => {
+}:
+  {
+    replies: Reply[]
+    comments: Comment[]
+    setComments: React.Dispatch<React.SetStateAction<Comment[] | []>>
+  }
+) => {
   const [showDotsIcon, setShowDotsIcon] = useState(false);
   const [mouseEnterCommentId, setMouseEnterCommentId] = useState<string | null>(null);
   const [showSpeechBubble, setShowSpeechBubble] = useState(false);
-  const [targetCommentId, setTargetCommentId] = useState<string | null>(null);
-  const [showReplayInputBox, setShowReplayInputBox] = useState(false);
-  const [newReply, setNewReply] = useState('');
-
-  const handleClickLikeButton = (id: string, isLike: boolean) => () => {
-    const updateComments = comments.map((comment) => {
-      if (comment.id === id) {
-        return { ...comment, like: !comment.like };
-      } else {
-        return comment;
-      }
-    });
-
-    setComments(updateComments);
-    localStorage.setItem('comments', JSON.stringify(updateComments));
-  };
 
   const handleMouseEnterComment = (id: string) => () => {
     setShowDotsIcon(true);
@@ -101,42 +86,37 @@ const Comments = ({
     setShowSpeechBubble(false);
   };
 
-  const handleClickReplyButton = (id: string) => () => {
-    // TODO
+  const handleClickLikeButton = (id: string, commentId: string) => () => {
+    const updateComments = comments.map(comment => {
+      if (comment.id === commentId) {
+        return {
+          ...comment,
+          replies: comment.replies.map(replay => {
+            if (replay.id === id) {
+              return {
+                ...replay,
+                like: !replay.like
+              };
+            } else {
+              return replay;
+            }
+          })
+        };
+      } else {
+        return comment;
+      }
+    });
 
-    setTargetCommentId(id);
-    setShowReplayInputBox(true);
+    setComments(updateComments);
+    localStorage.setItem('comments', JSON.stringify(updateComments));
   };
 
-  const onAddReplay = (e: KeyboardEvent<HTMLElement>) => {
-    if (e.key === 'Enter') {
-      const updateComments = comments.map(comment => {
-        if (comment.id === targetCommentId) {
-          return {
-            ...comment,
-            replies: [
-              ...comment.replies,
-              {
-                id: uuidv4(),
-                commentId: targetCommentId,
-                like: false,
-                text: newReply
-              }
-            ]
-          };
-        } else {
-          return comment;
-        }
-      });
+  const handleClickReplyButton = () => {
 
-      setComments(updateComments);
-      localStorage.setItem('comments', JSON.stringify(updateComments));
-      setNewReply('');
-    }
   };
 
-  const renderComments = comments.map((item) => {
-    const { id, text, like, replies } = item;
+  const renderReplies = replies.map((reply) => {
+    const { id, commentId, text, like } = reply;
 
     return (
       <S.Container
@@ -171,11 +151,11 @@ const Comments = ({
 
                 {showSpeechBubble &&
                   <S.SpeechBubble>
-                    <SpeechBubble
+                    {/* <SpeechBubble
                       id={id}
                       comments={comments}
                       setComments={setComments}
-                    />
+                    /> */}
                   </S.SpeechBubble>
                 }
               </S.Dots>
@@ -186,7 +166,7 @@ const Comments = ({
 
         <S.ButtonWrapper>
 
-          <button onClick={handleClickLikeButton(id, like)}>
+          <button onClick={handleClickLikeButton(id, commentId)}>
             <Text
               fontSize={12}
               padding="0 10px 0 0"
@@ -196,7 +176,7 @@ const Comments = ({
             </Text>
           </button>
 
-          <button onClick={handleClickReplyButton(id)}>
+          <button onClick={handleClickReplyButton}>
             <Text
               fontSize={12}
               color={COLOR.gray300}
@@ -207,29 +187,14 @@ const Comments = ({
 
         </S.ButtonWrapper>
 
-        {replies.length > 0 &&
-          <Replies
-            replies={replies}
-            comments={comments}
-            setComments={setComments}
-          />}
-
-        {id === targetCommentId && showReplayInputBox &&
-          <Input
-            placeholder='답글을 입력하세요...'
-            comment={newReply}
-            setComment={setNewReply}
-            onKeyPressEnter={onAddReplay}
-          />}
       </S.Container >
     );
   });
-
   return (
     <>
-      {renderComments}
+      {renderReplies}
     </>
   );
 };
 
-export default Comments;
+export default Replies;

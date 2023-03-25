@@ -7,6 +7,7 @@ export interface Comment {
 
 export interface Reply {
   id: string
+  commentId: string
   like: boolean
   text: string
 }
