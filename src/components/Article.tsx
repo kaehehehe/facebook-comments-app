@@ -76,7 +76,7 @@ const Article = () => {
     setIsLike((prev) => !prev);
   };
 
-  const onKeyPressEnter = (e: KeyboardEvent<HTMLElement>) => {
+  const onAddComment = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key === 'Enter') {
       const updateComment = [
         ...comments,
@@ -146,7 +146,7 @@ const Article = () => {
 
       <Input
         placeholder='댓글을 입력하세요...'
-        onKeyPressEnter={onKeyPressEnter}
+        onKeyPressEnter={onAddComment}
         comment={newComment}
         setComment={setNewComment}
       />
