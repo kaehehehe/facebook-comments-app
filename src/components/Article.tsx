@@ -54,8 +54,8 @@ const S = {
 const Article = () => {
   const [isLike, setIsLike] = useState(false);
   const [isOpenCommentModal, setIsOpenCommentModal] = useState(false);
-  const [comments, setComments] = useState<Comment[] | []>([]);
-  const [comment, setComment] = useState('');
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [newComment, setNewComment] = useState('');
   console.log(isOpenCommentModal);
 
   useLayoutEffect(() => {
@@ -78,15 +78,19 @@ const Article = () => {
 
   const onKeyPressEnter = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key === 'Enter') {
-      const newComment = {
-        id: uuidv4(),
-        like: false,
-        replay: [],
-        comment
-      };
-      setComments([...comments, newComment]);
-      setComment('');
-      localStorage.setItem('comments', JSON.stringify([...comments, newComment]));
+      const updateComment = [
+        ...comments,
+        {
+          id: uuidv4(),
+          like: false,
+          replies: [],
+          text: newComment
+        }
+      ];
+
+      setComments(updateComment);
+      setNewComment('');
+      localStorage.setItem('comments', JSON.stringify(updateComment));
     }
   };
 
@@ -135,16 +139,16 @@ const Article = () => {
 
       {comments.length > 0 &&
         <Comments
-          comments={comments as Comment[]}
-          setComments={setComments}
+        comments={comments}
+        setComments={setComments}
         />
       }
 
       <Input
         placeholder='댓글을 입력하세요...'
         onKeyPressEnter={onKeyPressEnter}
-        comment={comment}
-        setComment={setComment}
+        comment={newComment}
+        setComment={setNewComment}
       />
     </S.Article>
   );

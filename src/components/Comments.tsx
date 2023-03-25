@@ -96,7 +96,7 @@ const Comments = ({
   };
 
   const renderComments = comments.map((item) => {
-    const { id, comment, like } = item;
+    const { id, text, like } = item;
 
     return (
       <S.Container
@@ -110,7 +110,7 @@ const Comments = ({
 
             <S.Comment>
               <Text fontSize={15}>
-                {comment}
+                {text}
               </Text>
               {like &&
                 <S.Like>

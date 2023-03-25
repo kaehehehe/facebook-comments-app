@@ -1,12 +1,12 @@
 export interface Comment {
   id: string
   like: boolean
-  replay: Reply[] | []
-  comment: string
+  replies: Reply[] | []
+  text: string
 }
 
 export interface Reply {
   id: string
   like: boolean
-  comments: string
+  text: string
 }
