@@ -6,6 +6,7 @@ import { type Comment, type Reply } from '../interface';
 import COLOR from '../themes/color';
 import { Text } from '../themes/element';
 import Like from './Like';
+import SpeechBubble from './SpeechBubble';
 
 const S = {
   Container: styled.div`
@@ -73,8 +74,8 @@ const Replies = ({
   }
 ) => {
   const [showDotsIcon, setShowDotsIcon] = useState(false);
-  const [mouseEnterCommentId, setMouseEnterCommentId] = useState<string | null>(null);
   const [showSpeechBubble, setShowSpeechBubble] = useState(false);
+  const [mouseEnterCommentId, setMouseEnterCommentId] = useState<string | null>(null);
 
   const handleMouseEnterComment = (id: string) => () => {
     setShowDotsIcon(true);
@@ -151,11 +152,12 @@ const Replies = ({
 
                 {showSpeechBubble &&
                   <S.SpeechBubble>
-                    {/* <SpeechBubble
+                  <SpeechBubble
+                    commentId={commentId}
                       id={id}
                       comments={comments}
                       setComments={setComments}
-                    /> */}
+                  />
                   </S.SpeechBubble>
                 }
               </S.Dots>

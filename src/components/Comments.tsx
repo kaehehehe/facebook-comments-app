@@ -102,8 +102,6 @@ const Comments = ({
   };
 
   const handleClickReplyButton = (id: string) => () => {
-    // TODO
-
     setTargetCommentId(id);
     setShowReplayInputBox(true);
   };

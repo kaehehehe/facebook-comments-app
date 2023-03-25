@@ -33,20 +33,38 @@ const S = {
 
 const SpeechBubble = ({
   id,
+  commentId,
   comments,
   setComments
 }:
   {
     id: string
+    commentId?: string
     comments: Comment[]
     setComments: React.Dispatch<React.SetStateAction<Comment[] | []>>
   }
 ) => {
   const handleClickDeleteButton = (id: string) => () => {
-    const updateComments = comments.filter(comment => comment.id !== id);
+    if (commentId) {
+      const updateComments = comments.map(comment => {
+        if (comment.id === commentId) {
+          return {
+            ...comment,
+            replies: comment.replies.filter(reply => reply.id !== id)
+          };
+        } else {
+          return comment;
+        }
+      });
 
-    setComments(updateComments);
-    localStorage.setItem('comments', JSON.stringify(updateComments));
+      setComments(updateComments);
+      localStorage.setItem('comments', JSON.stringify(updateComments));
+    } else {
+      const updateComments = comments.filter(comment => comment.id !== id);
+
+      setComments(updateComments);
+      localStorage.setItem('comments', JSON.stringify(updateComments));
+    }
   };
 
   return (
