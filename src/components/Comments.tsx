@@ -1,11 +1,12 @@
 import React, { type KeyboardEvent, useState } from 'react';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
+
 import { type Comment } from '../interface';
 import COLOR from '../themes/color';
 import { Text } from '../themes/element';
+import ImgAvatar from '../assets/images/img_avatar.png';
 import Like from './Like';
 import SpeechBubble from './SpeechBubble';
 import Replies from './Replies';
@@ -27,6 +28,14 @@ const S = {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
+  `,
+  Avatar: styled.img`
+    width: 33px;
+    height: 33px;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: 1px solid ${COLOR.gray400};
+    object-fit: contain:
   `,
   Comment: styled.div`
     position: relative;
@@ -145,6 +154,11 @@ const Comments = ({
         <S.CommentAndDots>
 
           <S.CommentWrapper>
+
+            <S.Avatar
+              src={ImgAvatar}
+              alt="avatar"
+            />
 
             <S.Comment>
               <Text fontSize={15}>

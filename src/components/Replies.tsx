@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { type Comment, type Reply } from '../interface';
 import COLOR from '../themes/color';
+import ImgAvatar from '../assets/images/img_avatar.png';
 import { Text } from '../themes/element';
 import Like from './Like';
 import SpeechBubble from './SpeechBubble';
@@ -13,7 +14,6 @@ const S = {
     display: flex;
     flex-direction: column;
     margin: 0 0 10px 50px;
-    border: 1px solid red;
   `,
   CommentAndDots: styled.div`
     display: flex;
@@ -25,6 +25,13 @@ const S = {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
+  `,
+  Avatar: styled.img`
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: 1px solid ${COLOR.gray400};
   `,
   Comment: styled.div`
     position: relative;
@@ -128,6 +135,11 @@ const Replies = ({
         <S.CommentAndDots>
 
           <S.CommentWrapper>
+
+            <S.Avatar
+              src={ImgAvatar}
+              alt="avatar"
+            />
 
             <S.Comment>
               <Text fontSize={15}>
