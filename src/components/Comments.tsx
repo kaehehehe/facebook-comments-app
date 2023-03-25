@@ -203,6 +203,7 @@ const Comments = ({
               fontSize={12}
               padding="0 10px 0 0"
               color={like ? COLOR.blue : COLOR.gray300}
+              fontWeight={500}
             >
               좋아요
             </Text>
@@ -212,6 +213,7 @@ const Comments = ({
             <Text
               fontSize={12}
               color={COLOR.gray300}
+              fontWeight={500}
             >
               답글 달기
             </Text>
