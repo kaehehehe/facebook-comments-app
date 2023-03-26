@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/facebook-comments-app/static/js/main.4d9ae582.js",
+    "main.js": "/facebook-comments-app/static/js/main.f569275d.js",
     "static/media/img_post.jpeg": "/facebook-comments-app/static/media/img_post.bb31ca59bfbe3676a9eb.jpeg",
     "index.html": "/facebook-comments-app/index.html",
-    "main.4d9ae582.js.map": "/facebook-comments-app/static/js/main.4d9ae582.js.map"
+    "main.f569275d.js.map": "/facebook-comments-app/static/js/main.f569275d.js.map"
   },
   "entrypoints": [
-    "static/js/main.4d9ae582.js"
+    "static/js/main.f569275d.js"
   ]
 }
