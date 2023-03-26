@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/facebook-comments-app/static/js/main.a93f34e4.js",
+    "static/media/img_post.jpeg": "/facebook-comments-app/static/media/img_post.bb31ca59bfbe3676a9eb.jpeg",
+    "index.html": "/facebook-comments-app/index.html",
+    "main.a93f34e4.js.map": "/facebook-comments-app/static/js/main.a93f34e4.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.a93f34e4.js"
+  ]
+}
