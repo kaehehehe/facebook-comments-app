@@ -81,9 +81,10 @@ const S = {
 };
 
 const Article = () => {
-  const [isLike, setIsLike] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
+  const [isLike, setIsLike] = useState(false);
+  const [showInputBox, setShowInputBox] = useState(false);
 
   useLayoutEffect(() => {
     const comments = localStorage.getItem('comments');
@@ -119,6 +120,10 @@ const Article = () => {
       setNewComment('');
       localStorage.setItem('comments', JSON.stringify(updateComment));
     }
+  };
+
+  const handleClickCommentButton = () => {
+    setShowInputBox(true);
   };
 
   return (
@@ -180,7 +185,7 @@ const Article = () => {
             좋아요
           </Text>
         </S.Button>
-        <S.Button>
+        <S.Button onClick={handleClickCommentButton}>
           <GoComment
             size="20"
             color={COLOR.gray300}
@@ -203,14 +208,16 @@ const Article = () => {
         />
       }
 
-        <S.InputWrapper>
-          <Input
-            placeholder='댓글을 입력하세요...'
-            onKeyPressEnter={onAddComment}
-            comment={newComment}
-            setComment={setNewComment}
-          />
-        </S.InputWrapper>
+        {showInputBox &&
+          <S.InputWrapper>
+            <Input
+              placeholder='댓글을 입력하세요...'
+              onKeyPressEnter={onAddComment}
+              comment={newComment}
+              setComment={setNewComment}
+            />
+          </S.InputWrapper>
+        }
 
       </S.CommentWrapper>
 
