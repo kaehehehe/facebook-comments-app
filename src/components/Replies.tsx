@@ -37,7 +37,7 @@ const S = {
     position: relative;
     width: max-content;
     padding: 10px;
-     border-radius: 13px;
+    border-radius: 13px;
     background-color: ${COLOR.gray500};
   `,
   Like: styled.div`

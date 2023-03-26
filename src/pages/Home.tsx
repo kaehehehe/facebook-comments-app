@@ -10,8 +10,10 @@ const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: calc(100vh - 56);
+    padding-top: 80px;
     background-color: ${COLOR.gray100};
+    overflow-y: auto;
   `
 };
 

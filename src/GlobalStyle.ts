@@ -21,10 +21,9 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
-  textarea {
-    outline: none;
+  input {
     border: none;
-    resize: none;
+    outline: none;
   }
 
   button {

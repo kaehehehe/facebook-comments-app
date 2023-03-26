@@ -72,7 +72,7 @@ const S = {
     bottom: -70px;
   `,
   InputWrapper: styled.div`
-    margin-left: 50px;
+    margin: 5px 0 0 50px;
   `
 };
 

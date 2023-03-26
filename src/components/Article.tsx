@@ -18,7 +18,7 @@ const S = {
     display: flex;
     flex-direction: column;
     width: 648px;
-    height: 100vh;
+    height: auto;
     margin: 10px 0;
     padding: 8px;
     background-color: ${COLOR.white};
