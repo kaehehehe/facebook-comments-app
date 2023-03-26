@@ -1,7 +1,8 @@
 {
   "name": "facebook-comments-app",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://kaehehehe.github.io/facebook-comments-app/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -28,7 +29,6 @@
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://kaehehehe.github.io/facebook-comments-app",
   "eslintConfig": {
     "extends": [
       "react-app",
