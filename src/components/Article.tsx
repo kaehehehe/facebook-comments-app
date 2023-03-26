@@ -44,10 +44,12 @@ const S = {
     height: fit-content;
     margin-top: 10px;
   `,
-  LikeWrapper: styled.div`
+  PostMetadata: styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 40px;
+  padding: 0 10px;
   `,
   CommentWrapper: styled.div`
     overflow-y: auto;
@@ -144,9 +146,18 @@ const Article = () => {
         src={ImgArticle}
         alt="posting"
       />
-      <S.LikeWrapper>
-        {isLike && <Like />}
-      </S.LikeWrapper>
+      <S.PostMetadata>
+        <div>
+          {isLike && <Like />}
+        </div>
+
+        <Text
+          fontSize={16}
+          color={COLOR.gray300}
+        >
+          댓글 {comments.length} 개
+        </Text>
+      </S.PostMetadata>
       <S.ButtonWrapper>
         <S.Button onClick={handleClickLikeButton}>
           {isLike
@@ -193,12 +204,12 @@ const Article = () => {
       }
 
         <S.InputWrapper>
-      <Input
-        placeholder='댓글을 입력하세요...'
-        onKeyPressEnter={onAddComment}
-        comment={newComment}
-        setComment={setNewComment}
-      />
+          <Input
+            placeholder='댓글을 입력하세요...'
+            onKeyPressEnter={onAddComment}
+            comment={newComment}
+            setComment={setNewComment}
+          />
         </S.InputWrapper>
 
       </S.CommentWrapper>
