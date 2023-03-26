@@ -52,7 +52,7 @@ const S = {
   padding: 0 10px;
   `,
   CommentWrapper: styled.div`
-    overflow-y: auto;
+    height: fit-content;
   `,
   ButtonWrapper: styled.div`
     display: flex;
