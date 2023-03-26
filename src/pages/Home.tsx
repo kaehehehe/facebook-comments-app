@@ -10,7 +10,7 @@ const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: calc(100vh - 56);
+    height: 100vh;
     padding-top: 80px;
     background-color: ${COLOR.gray100};
     overflow-y: auto;
