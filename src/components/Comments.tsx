@@ -70,6 +70,9 @@ const S = {
   SpeechBubble: styled.div`
     position: absolute;
     bottom: -70px;
+  `,
+  InputWrapper: styled.div`
+    margin-left: 50px;
   `
 };
 
@@ -235,12 +238,15 @@ const Comments = ({
           />}
 
         {id === targetCommentId && showReplayInputBox &&
-          <Input
-            placeholder='답글을 입력하세요...'
-            comment={newReply}
-            setComment={setNewReply}
-            onKeyPressEnter={onAddReplay}
-          />}
+          <S.InputWrapper>
+            <Input
+              placeholder='답글을 입력하세요...'
+              comment={newReply}
+              setComment={setNewReply}
+              onKeyPressEnter={onAddReplay}
+            />
+          </S.InputWrapper>
+        }
       </S.Container >
     );
   });
