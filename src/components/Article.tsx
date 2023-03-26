@@ -88,16 +88,25 @@ const Article = () => {
 
   useLayoutEffect(() => {
     const comments = localStorage.getItem('comments');
+    const isLike = localStorage.getItem('isLike');
 
     if (comments === null) {
       localStorage.setItem('comments', JSON.stringify([]));
     } else {
       setComments(JSON.parse(comments));
     }
+
+    if (isLike === null) {
+      localStorage.setItem('isLike', JSON.stringify(false));
+    } else {
+      setIsLike(JSON.parse(isLike));
+    }
   }, []);
 
   const handleClickLikeButton = () => {
     setIsLike((prev) => !prev);
+
+    localStorage.setItem('isLike', JSON.stringify(!isLike));
   };
 
   const onAddComment = (e: KeyboardEvent<HTMLElement>) => {
