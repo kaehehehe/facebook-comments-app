@@ -89,10 +89,10 @@ const Replies = ({
     setMouseEnterCommentId(id);
   };
 
-  // const handleMouseLeaveComment = () => {
-  //   setShowDotsIcon(false);
-  //   setShowSpeechBubble(false);
-  // };
+  const handleMouseLeaveComment = () => {
+    setShowDotsIcon(false);
+    setShowSpeechBubble(false);
+  };
 
   const handleClickLikeButton = (id: string, commentId: string) => () => {
     const updateComments = comments.map(comment => {
@@ -130,7 +130,7 @@ const Replies = ({
       <S.Container
         key={id}
         onMouseEnter={handleMouseEnterComment(id)}
-        // onMouseLeave={handleMouseLeaveComment}
+        onMouseLeave={handleMouseLeaveComment}
       >
         <S.CommentAndDots>
 
