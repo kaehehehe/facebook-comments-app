@@ -41,7 +41,7 @@ const S = {
     position: relative;
     width: max-content;
     padding: 10px;
-    border-radius: 30px;
+    border-radius: 13px;
     background-color: ${COLOR.gray500};
   `,
   Like: styled.div`
@@ -87,6 +87,8 @@ const Comments = ({
   const [showReplayInputBox, setShowReplayInputBox] = useState(false);
   const [newReply, setNewReply] = useState('');
 
+  console.log(showSpeechBubble);
+
   const handleClickLikeButton = (id: string, isLike: boolean) => () => {
     const updateComments = comments.map((comment) => {
       if (comment.id === id) {
@@ -116,7 +118,11 @@ const Comments = ({
   };
 
   const onAddReplay = (e: KeyboardEvent<HTMLElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      if (newReply.trim() === '') {
+        return;
+      }
+
       const updateComments = comments.map(comment => {
         if (comment.id === targetCommentId) {
           return {
@@ -175,7 +181,7 @@ const Comments = ({
 
           {showDotsIcon && mouseEnterCommentId === id &&
             <>
-              <S.Dots onClick={() => { setShowSpeechBubble(!showSpeechBubble); }}>
+            <S.Dots onClick={() => { setShowSpeechBubble(!showSpeechBubble); }}>
                 <BiDotsHorizontalRounded
                   size={18}
                   color={COLOR.gray300}

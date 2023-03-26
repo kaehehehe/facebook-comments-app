@@ -5,12 +5,13 @@ import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
 import Input from './Input';
-import ImgArticle from '../assets/images/img_post.jpg';
+import ImgArticle from '../assets/images/img_post.jpeg';
 import COLOR from '../themes/color';
 import { Text } from '../themes/element';
 import Comments from './Comments';
 import { type Comment } from '../interface';
 import Like from './Like';
+import ImgAvatar from '../assets/images/img_avatar.png';
 
 const S = {
   Article: styled.div`
@@ -24,17 +25,40 @@ const S = {
     border-radius: 12px;
     border: 1px solid ${COLOR.gray200};
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    overflow: hidden;
+  `,
+  AvatarWrapper: styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  `,
+  Avatar: styled.img`
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: 1px solid ${COLOR.gray400};
+    object-fit: contain:
   `,
   Image: styled.img`
     width: 100%;
     height: fit-content;
+    margin-top: 10px;
+  `,
+  LikeWrapper: styled.div`
+  display: flex;
+  align-items: center;
+  height: 40px;
+  `,
+  CommentWrapper: styled.div`
+    overflow-y: auto;
   `,
   ButtonWrapper: styled.div`
     display: flex;
     align-items: center;
     height: 44px;
-    border: 1px solid ${COLOR.gray200};
+    margin-bottom: 10px;
+    border-top: 1px solid ${COLOR.gray200};
+    border-bottom: 1px solid ${COLOR.gray200};
   `,
   Button: styled.div`
     flex: 1;
@@ -48,15 +72,16 @@ const S = {
     :hover {
       background-color: ${COLOR.gray400};
     }
+  `,
+  InputWrapper: styled.div`
+    margin-top: 20px;
   `
 };
 
 const Article = () => {
   const [isLike, setIsLike] = useState(false);
-  const [isOpenCommentModal, setIsOpenCommentModal] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
-  console.log(isOpenCommentModal);
 
   useLayoutEffect(() => {
     const comments = localStorage.getItem('comments');
@@ -68,16 +93,16 @@ const Article = () => {
     }
   }, []);
 
-  const handleClickComment = () => {
-    setIsOpenCommentModal(true);
-  };
-
   const handleClickLikeButton = () => {
     setIsLike((prev) => !prev);
   };
 
   const onAddComment = (e: KeyboardEvent<HTMLElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      if (newComment.trim() === '') {
+        return;
+      }
+
       const updateComment = [
         ...comments,
         {
@@ -96,11 +121,32 @@ const Article = () => {
 
   return (
     <S.Article>
+      <S.AvatarWrapper>
+        <S.Avatar
+          src={ImgAvatar}
+          alt="avatar"
+        />
+        <Text
+          fontSize={16}
+          fontWeight={500}
+          padding="0 0 0 5px"
+        >
+          카에
+        </Text>
+      </S.AvatarWrapper>
+      <Text
+        fontSize={24}
+        fontWeight={500}
+      >
+        벚꽃이 피었어요~
+      </Text>
       <S.Image
         src={ImgArticle}
         alt="posting"
       />
-      {isLike && <Like />}
+      <S.LikeWrapper>
+        {isLike && <Like />}
+      </S.LikeWrapper>
       <S.ButtonWrapper>
         <S.Button onClick={handleClickLikeButton}>
           {isLike
@@ -123,7 +169,7 @@ const Article = () => {
             좋아요
           </Text>
         </S.Button>
-        <S.Button onClick={handleClickComment}>
+        <S.Button>
           <GoComment
             size="20"
             color={COLOR.gray300}
@@ -137,6 +183,8 @@ const Article = () => {
         </S.Button>
       </S.ButtonWrapper>
 
+      <S.CommentWrapper>
+
       {comments.length > 0 &&
         <Comments
         comments={comments}
@@ -144,12 +192,17 @@ const Article = () => {
         />
       }
 
+        <S.InputWrapper>
       <Input
         placeholder='댓글을 입력하세요...'
         onKeyPressEnter={onAddComment}
         comment={newComment}
         setComment={setNewComment}
       />
+        </S.InputWrapper>
+
+      </S.CommentWrapper>
+
     </S.Article>
   );
 };

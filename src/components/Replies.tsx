@@ -37,7 +37,7 @@ const S = {
     position: relative;
     width: max-content;
     padding: 10px;
-    border-radius: 30px;
+     border-radius: 13px;
     background-color: ${COLOR.gray500};
   `,
   Like: styled.div`
@@ -89,10 +89,10 @@ const Replies = ({
     setMouseEnterCommentId(id);
   };
 
-  const handleMouseLeaveComment = () => {
-    setShowDotsIcon(false);
-    setShowSpeechBubble(false);
-  };
+  // const handleMouseLeaveComment = () => {
+  //   setShowDotsIcon(false);
+  //   setShowSpeechBubble(false);
+  // };
 
   const handleClickLikeButton = (id: string, commentId: string) => () => {
     const updateComments = comments.map(comment => {
@@ -130,7 +130,7 @@ const Replies = ({
       <S.Container
         key={id}
         onMouseEnter={handleMouseEnterComment(id)}
-        onMouseLeave={handleMouseLeaveComment}
+        // onMouseLeave={handleMouseLeaveComment}
       >
         <S.CommentAndDots>
 
@@ -156,7 +156,7 @@ const Replies = ({
 
           {showDotsIcon && mouseEnterCommentId === id &&
             <>
-              <S.Dots onClick={() => { setShowSpeechBubble(!showSpeechBubble); }}>
+            <S.Dots onClick={() => { setShowSpeechBubble(!showSpeechBubble); }}>
                 <BiDotsHorizontalRounded
                   size={18}
                   color={COLOR.gray300}

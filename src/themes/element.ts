@@ -11,7 +11,7 @@ interface TextStyleProps {
   padding?: string
 }
 
-export const Text = styled.div<TextStyleProps>`
+export const Text = styled.pre<TextStyleProps>`
   padding: ${({ padding }) => padding};
   color: ${({ color }) => color};
   font-size: ${({ fontSize }) => fontSize || 16}px;
